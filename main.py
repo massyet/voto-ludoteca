@@ -16,7 +16,7 @@ if not raw_key:
     raise RuntimeError("Variabile FIREBASE_KEY non trovata")
 
 # ⚠️ Decodifica i \\n in \n
-key_json = json.loads(raw_key.replace('\\\\n', '\n'))
+key_json = json.loads(raw_key.encode().decode('unicode_escape'))
 
 cred = credentials.Certificate(key_json)
 initialize_app(cred)
