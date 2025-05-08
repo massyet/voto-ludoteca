@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,13 +25,13 @@
 
   <script>
     const firebaseConfig = {
-  	apiKey: "AIzaSyA3BB2mb7Srv89DcEsMiGHx7Js5LzNtv6c",
-  	authDomain: "prova-ludoteca.firebaseapp.com",
-  	projectId: "prova-ludoteca",
-  	storageBucket: "prova-ludoteca.firebasestorage.app",
-  	messagingSenderId: "955384331795",
-  	appId: "1:955384331795:web:7e4f3077ad666f5a7d89e6",
-  	measurementId: "G-RYD1LBTQ7C"
+      apiKey: "AIzaSyA3BB2mb7Srv89DcEsMiGHx7Js5LzNtv6c",
+      authDomain: "prova-ludoteca.firebaseapp.com",
+      projectId: "prova-ludoteca",
+      storageBucket: "prova-ludoteca.firebasestorage.app",
+      messagingSenderId: "955384331795",
+      appId: "1:955384331795:web:7e4f3077ad666f5a7d89e6",
+      measurementId: "G-RYD1LBTQ7C"
     };
     firebase.initializeApp(firebaseConfig);
 
@@ -59,7 +58,7 @@
 
       const user = firebase.auth().currentUser;
       const idToken = await user.getIdToken();
-      fetch("https://voto-ludoteca.onrender.com/submit", {
+      fetch("/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
