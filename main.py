@@ -21,6 +21,13 @@ key_json = json.loads(raw_key.encode().decode('unicode_escape'))
 cred = credentials.Certificate(key_json)
 initialize_app(cred)
 
+# === Whitelist degli utenti abilitati ===
+try:
+    with open("mail_voto.txt", "r") as f:
+        WHITELIST = set(line.strip().lower() for line in f if line.strip())
+except FileNotFoundError:
+    WHITELIST = set()
+    print("⚠️ ATTENZIONE: mail_voto.txt non trovato. Nessun utente potrà votare.")
 
 # === In-memory storage ===
 user_submissions = {}
