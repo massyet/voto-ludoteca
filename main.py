@@ -83,9 +83,20 @@ def verifica_titolo_bgg(titolo):
         response = requests.get(url, params=params, headers=headers, timeout=5)
         if response.status_code != 200:
             raise HTTPException(status_code=503, detail="Servizio BoardGameGeek non disponibile.")
-        
-        return titolo.lower() in response.text.lower()
-    
+
+        if titolo.lower() in response.text.lower():
+            return True, None  # Titolo trovato
+
+        # 🔥 Prova a suggerire il primo risultato trovato
+        start = response.text.find('name value="')
+        if start != -1:
+            start += len('name value="')
+            end = response.text.find('"', start)
+            suggestion = response.text[start:end]
+            return False, suggestion  # Titolo non trovato, ma suggerimento disponibile
+
+        return False, None  # Nessun suggerimento trovato
+
     except requests.RequestException as e:
         print(f"Errore nella richiesta a BoardGameGeek: {e}")
         raise HTTPException(status_code=503, detail="Errore di rete durante la verifica del titolo.")
